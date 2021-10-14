@@ -22,6 +22,11 @@ This repo contains the implementation of 3D segmentation of BraTS 2020 with the 
 Please download BraTS 2020 data according to `https://www.med.upenn.edu/cbica/brats2020/data.html`.  
 Unzip downloaded data at `./data` folder (please create one) and remove all the csv files in the folder, or it will cause errors.
 
+### Pretrained Checkpoint
+Please download the checkpoint from the url below:  
+url：https://pan.baidu.com/s/14qM2k46mFnzT2RmI3sWcSw  
+extraction code：0512  
+
 ### Training
 For default training configuration, we use patch-based training pipeline and use Adam optimizer. Deep supervision is utilized to facilitate convergence.
 #### Train and validate on BraTS training set
