@@ -4,10 +4,6 @@ from models.basic_modules import *
 class AttentionGate(nn.Module):
     def __init__(self, F_g, F_l, F_int, **kwargs):
         super().__init__()
-        # self.W_g = nn.Sequential(
-        #     nn.Conv2d(F_g, F_int, kernel_size=1, stride=1, padding=0, bias=True),
-        #     nn.BatchNorm2d(F_int)
-        # )
         self.W_g = ConvNorm(F_g, F_int, kernel_size=1, stride=1, activation=False, **kwargs)
 
         self.W_x = ConvNorm(F_l, F_int, kernel_size=1, stride=2, activation=False, **kwargs)

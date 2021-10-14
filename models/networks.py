@@ -9,7 +9,7 @@ head_map = {'fcn': FCNHead,
 
 class Backbone(nn.Module):
     """
-    model backbone to extract features
+    Model backbone to extract features
     """
     def __init__(self, input_channels=3, channels=(32, 64, 128, 256, 512), strides=(2, 2, 2, 2), **kwargs):
         super().__init__()
@@ -36,28 +36,6 @@ class Backbone(nn.Module):
         x3_0 = self.conv3_0(x2_0)
         x4_0 = self.conv4_0(x3_0)
         return x0_0, x1_0, x2_0, x3_0, x4_0
-
-
-class FirstStageNetwork(nn.Module):
-    def __init__(self, head='fcn', num_classes=1, input_channels=3, channels=(32, 64, 128, 256, 512),
-                 use_deconv=False, strides=(2, 2, 2, 2), **kwargs):
-        super().__init__()
-        assert head in head_list
-        self.backbone = Backbone(input_channels, channels, strides, **kwargs)
-        nb_filter = self.backbone.nb_filter
-
-        self.head = head
-        self.one_stage = head_map[head](in_channels=nb_filter[2:], out_channels=1)
-
-    def forward(self, x):
-        size = x.shape[2:]
-        feat = self.backbone(x)
-        attention = self.one_stage(feat[2:])
-
-        output = F.interpolate(attention, size=size, mode='trilinear', align_corners=False)
-        out = dict()
-        out['out'] = output
-        return out
 
 
 class SegmentationNetwork(nn.Module):
@@ -239,6 +217,9 @@ class EnhancedUNet(SegmentationNetwork):
 
 
 class PriorAttentionNet(SegmentationNetwork):
+    """
+    The proposed Prior Attention Network for 3D BraTS segmentation.
+    """
     def __init__(self, num_classes, head='fcn', input_channels=3, channels=(32, 64, 128, 256, 512),
                  use_deconv=False, strides=(2, 2, 2, 2), **kwargs):
         super().__init__()
@@ -296,17 +277,9 @@ class PriorAttentionNet(SegmentationNetwork):
         x0_4 = self.conv0_4(torch.cat([self.skip_0(x0, attention0_4), self.up1_0(x1_3)], dim=1))  # (nb_filter[0], H0, W0, D0)
 
         out = dict()
-        out['stage1'] = F.interpolate(attention, size=size, mode='trilinear', align_corners=False)
+        out['stage1'] = F.interpolate(attention, size=size, mode='trilinear', align_corners=False)  # intermediate
         out['level3'] = F.interpolate(self.convds3(x3_1), size=size, mode='trilinear', align_corners=False)
         out['level2'] = F.interpolate(self.convds2(x2_2), size=size, mode='trilinear', align_corners=False)
         out['level1'] = F.interpolate(self.convds1(x1_3), size=size, mode='trilinear', align_corners=False)
         out['out'] = F.interpolate(self.convds0(x0_4), size=size, mode='trilinear', align_corners=False)
         return out
-
-
-# from thop import profile
-# model = PriorAttentionNet(num_classes=4, input_channels=4, channels=(32, 64, 128, 256, 320),use_deconv=False,
-#              strides=(1, 2, 2, 2, 2), leaky=True, norm='INSTANCE')
-# inputs = torch.rand((1,4,128,128,128))
-# flops, params = profile(model, inputs=(inputs, ))
-# print('GFLOPS: {}; Params: {}M'.format(flops/1e9, params/1e6))

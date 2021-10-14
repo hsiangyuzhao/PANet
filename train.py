@@ -19,7 +19,7 @@ from utils.iterator import MetricMeter, set_random_seed, CosineAnnealingWithWarm
 
 import torch.multiprocessing
 torch.multiprocessing.set_sharing_strategy('file_system')
-#python train.py --model fuse --save_dir param_fuse --trainset --verbose --ds --mixed --benchmark --patch_test -c checkpoints/fuse/param_fuse/fuse_Epoch_160.pkl
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -38,7 +38,7 @@ def parse_args():
     parser.add_argument('--patch_test', action="store_true",
                         help='whether to use patched-pipeline when inference')
     parser.add_argument('--ngpu', type=int, default=1, help='number of GPUs')
-    parser.add_argument('--ncpu', type=int, default=6, help='number of workers for dataloader')
+    parser.add_argument('--ncpu', type=int, default=4, help='number of workers for dataloader')
     parser.add_argument('--trainset', action='store_true',
                         help='training the model on the entire BraTS Training Set')
     parser.add_argument('--verbose', action='store_true',
@@ -51,8 +51,6 @@ def parse_args():
 
 
 def main():
-    import torch.multiprocessing
-    torch.multiprocessing.set_sharing_strategy('file_system')
     args = parse_args()
     model_dict = {'unet': UNet, 'fuse': PriorAttentionNet, 'attention': AttentionUNet, 'enhanced': EnhancedUNet, 'cascade': CascadedUNet}
     model_name = args.model
@@ -375,6 +373,4 @@ def main():
 
 
 if __name__ == '__main__':
-    import torch.multiprocessing
-    torch.multiprocessing.set_sharing_strategy('file_system')
     main()
