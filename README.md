@@ -1,5 +1,6 @@
 # Prior Attention Network for Multi-Lesion Segmentation in Medical Images
 **Authors: Xiangyu Zhao, Peng Zhang, Fan Song, Chenbin Ma, Guangda Fan, Yangyang Sun, Youdan Feng, Guanglei Zhang**  
+**Institution: School of Biological Science and Medical Engineering, Beihang University; Beijing Advanced Innovation Center for Biomedical Engineering, Beihang University**
 https://arxiv.org/abs/2110.04735  
 This repo contains the implementation of 3D segmentation of BraTS 2020 with the proposed *Prior Attention Network*.
 
