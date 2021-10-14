@@ -18,4 +18,31 @@ This repo contains the implementation of 3D segmentation of BraTS 2020 with the 
 ![Snipaste_2021-10-12_15-47-32](https://user-images.githubusercontent.com/53631393/136914298-b76690c2-987d-4a3b-98da-9ab42f44ed10.png)
 
 ## Usage
-### Coming Soon
+### Data Preparation
+Please download BraTS 2020 data according to `https://www.med.upenn.edu/cbica/brats2020/data.html`.  
+Unzip downloaded data at `./data` folder (please create one) and remove all the csv files in the folder, or it will cause errors.
+
+### Training
+For default training configuration, we use patch-based training pipeline and use Adam optimizer. Deep supervision is utilized to facilitate convergence.
+#### Train and validate on BraTS training set
+```python
+python train.py --model panet --patch_test --ds
+```
+#### Training on the entire BraTS training set
+```python
+python train.py --model panet --patch_test --ds --trainset
+```
+#### Breakpoint continuation for training
+```python
+python train.py --model panet --patch_test --ds -c CKPT
+```
+#### PyTorch-native AMP training
+```python
+python train.py --model panet --patch_test --ds --mixed
+```
+
+### Inference
+For default inference configuration, we use patch-based pipeline.
+```python
+python inference.py --model panet --patch_test --validation -c CKPT
+```
