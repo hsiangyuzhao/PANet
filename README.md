@@ -1,10 +1,12 @@
 # Prior Attention Network for Multi-Lesion Segmentation in Medical Images
 **Authors: Xiangyu Zhao, Peng Zhang, Fan Song, Chenbin Ma, Guangda Fan, Yangyang Sun, Youdan Feng, Guanglei Zhang**  
 **Institution: School of Biological Science and Medical Engineering, Beihang University; Beijing Advanced Innovation Center for Biomedical Engineering, Beihang University**  
-https://arxiv.org/abs/2110.04735  
-This repo contains the implementation of 3D segmentation of BraTS 2020 with the proposed *Prior Attention Network*.
+
+manuscript link: https://arxiv.org/abs/2110.04735  
+This repo contains the implementation of 3D segmentation of BraTS 2020 with the proposed *Prior Attention Network*.  
 
 ## Methods
+In this paper we propose a novel *Prior Attention Network* with intermediate supervision, parameterized skip connections and deep supervision strategy to address multi-lesion segmentation problems in medical images.  
 ### Network Topology
 ![network](https://user-images.githubusercontent.com/53631393/136913718-e94f7ba1-8444-4445-8682-692ff6a99a62.png)
 ### Attention Guiding Decoder
@@ -42,10 +44,12 @@ python train.py --model panet --patch_test --ds --trainset
 ```python
 python train.py --model panet --patch_test --ds -c CKPT
 ```
+this will load the pretrained weights as well as the status of optimizer and scheduler.
 #### PyTorch-native AMP training
 ```python
 python train.py --model panet --patch_test --ds --mixed
 ```
+if the training is too slow, please enable CUDNN benchmark by adding `--benchmark` but it will slightly affects the reproducibility.
 
 ### Inference
 For default inference configuration, we use patch-based pipeline.
