@@ -30,7 +30,10 @@ Please download BraTS 2020 data according to `https://www.med.upenn.edu/cbica/br
 Unzip downloaded data at `./data` folder (please create one) and remove all the csv files in the folder, or it will cause errors.
 
 ### Pretrained Checkpoint
-Please download the checkpoint from the url below:  
+We provide ckpt download via Google Drive or Baidu Netdisk. Please download the checkpoint from the url below:  
+#### Google Drive
+url: https://drive.google.com/file/d/16Gy5mMzMPLvt1jVgzBsmBUbZTrUCKtWv/view?usp=sharing
+#### Baidu Netdisk
 url：https://pan.baidu.com/s/14qM2k46mFnzT2RmI3sWcSw  
 extraction code：0512  
 
