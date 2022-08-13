@@ -1,13 +1,26 @@
 # Prior Attention Network for Multi-Lesion Segmentation in Medical Images
+### :tada: **Our work has been accepted by IEEE Transactions on Medical Imaging**  
 **Authors:**  
-> Xiangyu Zhao[1], Peng Zhang[1], Fan Song[1], Chenbin Ma[1], Guangda Fan[1], Yangyang Sun[1], Youdan Feng[1], Guanglei Zhang[1][2]  
+> Xiangyu Zhao[1][2][3], Peng Zhang[1][2], Fan Song[1][2], Chenbin Ma[1][2], Guangda Fan[1][2], Yangyang Sun[1][2], Youdan Feng[1][2], Guanglei Zhang[1][2]*  
 
 **Institution:**
-> [1] School of Biological Science and Medical Engineering, Beihang University  
-> [2] Beijing Advanced Innovation Center for Biomedical Engineering, Beihang University  
+> [1] School of Biological Science and Medical Engineering, Beihang University, Beijing, China  
+> [2] Beijing Advanced Innovation Center for Biomedical Engineering, Beihang University, Beijing, China  
+> [3] School of Biomedical Engineering, Shanghai Jiao Tong University, Shanghai, China  
+> *Corresponding Author: Guanglei Zhang
 
 manuscript link: https://arxiv.org/abs/2110.04735  
 This repo contains the implementation of 3D segmentation of BraTS 2020 with the proposed *Prior Attention Network*.  
+**If you use our code, please cite the paper:**  
+> @ARTICLE{9852260,  
+  author={Zhao, Xiangyu and Zhang, Peng and Song, Fan and Ma, Chenbin and Fan, Guangda and Sun, Yangyang and Feng, Youdan and Zhang, Guanglei},  
+  journal={IEEE Transactions on Medical Imaging},   
+  title={Prior Attention Network for Multi-Lesion Segmentation in Medical Images},   
+  year={2022},  
+  volume={},  
+  number={},  
+  pages={1-1},  
+  doi={10.1109/TMI.2022.3197180}}  
 
 ## Methods
 In this paper we propose a novel *Prior Attention Network* with intermediate supervision, parameterized skip connections and deep supervision strategy to address multi-lesion segmentation problems in medical images.  
