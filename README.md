@@ -1,5 +1,5 @@
 # Prior Attention Network for Multi-Lesion Segmentation in Medical Images
-### :tada: **Our work has been accepted by IEEE Transactions on Medical Imaging**  
+### :tada: Our work has been accepted by *IEEE Transactions on Medical Imaging*  
 **Authors:**  
 > Xiangyu Zhao[1][2][3], Peng Zhang[1][2], Fan Song[1][2], Chenbin Ma[1][2], Guangda Fan[1][2], Yangyang Sun[1][2], Youdan Feng[1][2], Guanglei Zhang[1][2]*  
 
