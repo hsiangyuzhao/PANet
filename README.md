@@ -9,7 +9,10 @@
 > [3] School of Biomedical Engineering, Shanghai Jiao Tong University, Shanghai, China  
 > *Corresponding Author: Guanglei Zhang
 
-manuscript link: https://arxiv.org/abs/2110.04735  
+manuscript link:  
+- https://arxiv.org/abs/2110.04735 (preprint on arXiv, early version)  
+- https://ieeexplore.ieee.org/document/9852260 (IEEE TMI, journal version)  
+
 This repo contains the implementation of 3D segmentation of BraTS 2020 with the proposed *Prior Attention Network*.  
 **If you use our code, please cite the paper:**  
 > @ARTICLE{9852260,  
@@ -23,8 +26,7 @@ This repo contains the implementation of 3D segmentation of BraTS 2020 with the 
   doi={10.1109/TMI.2022.3197180}}  
 
 ## Methods
-In this paper we propose a novel *Prior Attention Network* with intermediate supervision, parameterized skip connections and deep supervision strategy to address multi-lesion segmentation problems in medical images.
-Compared with cascaded U-Net, which is popular in segmenting multiple lesions in medical images, our proposed network achieves better balance of performance and efficiency. You can refer to our manuscript for more details if you are interested in our program.
+In this paper we propose a novel *Prior Attention Network* with intermediate supervision, parameterized skip connections and deep supervision strategy to address multi-lesion segmentation problems in medical images.  
 ### Network Topology
 ![network](https://user-images.githubusercontent.com/53631393/136913718-e94f7ba1-8444-4445-8682-692ff6a99a62.png)
 ### Attention Guiding Decoder
@@ -82,5 +84,5 @@ If you have trouble reproducing our results, we also provided the download link 
 #### Google Drive
 url: https://drive.google.com/file/d/1Vq_NGXdiZSl2ez4PP9DhVQc3JL02TU8C/view?usp=sharing
 #### Baidu Netdisk
-url：https://pan.baidu.com/s/1jyiJrIs3CZHDrrEY_gycKg?pwd=0512 
+url：https://pan.baidu.com/s/1jyiJrIs3CZHDrrEY_gycKg?pwd=0512  
 extraction code (提取码)：0512 
