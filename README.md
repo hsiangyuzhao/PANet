@@ -23,7 +23,8 @@ This repo contains the implementation of 3D segmentation of BraTS 2020 with the 
   doi={10.1109/TMI.2022.3197180}}  
 
 ## Methods
-In this paper we propose a novel *Prior Attention Network* with intermediate supervision, parameterized skip connections and deep supervision strategy to address multi-lesion segmentation problems in medical images.  
+In this paper we propose a novel *Prior Attention Network* with intermediate supervision, parameterized skip connections and deep supervision strategy to address multi-lesion segmentation problems in medical images.
+Compared with cascaded U-Net, which is popular in segmenting multiple lesions in medical images, our proposed network achieves better balance of performance and efficiency. You can refer to our manuscript for more details if you are interested in our program.
 ### Network Topology
 ![network](https://user-images.githubusercontent.com/53631393/136913718-e94f7ba1-8444-4445-8682-692ff6a99a62.png)
 ### Attention Guiding Decoder
@@ -45,10 +46,10 @@ Unzip downloaded data at `./data` folder (please create one) and remove all the 
 ### Pretrained Checkpoint
 We provide ckpt download via Google Drive or Baidu Netdisk. Please download the checkpoint from the url below:  
 #### Google Drive
-url: https://drive.google.com/file/d/16Gy5mMzMPLvt1jVgzBsmBUbZTrUCKtWv/view?usp=sharing
+url: https://drive.google.com/file/d/1OwdKnM51rDvF3UiQDbcCWlPcYdc94-_O/view?usp=sharing
 #### Baidu Netdisk
 url：https://pan.baidu.com/s/14qM2k46mFnzT2RmI3sWcSw  
-extraction code：0512  
+extraction code (提取码)：0512  
 
 ### Training
 For default training configuration, we use patch-based training pipeline and use Adam optimizer. Deep supervision is utilized to facilitate convergence.
@@ -76,3 +77,10 @@ For default inference configuration, we use patch-based pipeline.
 ```python
 python inference.py --model panet --patch_test --validation -c CKPT
 ```
+### Our Results
+If you have trouble reproducing our results, we also provided the download link of our vanilla results inferred on BraTS 2020 validation set. You may download this via Google drive or Baidu Netdisk.
+#### Google Drive
+url: https://drive.google.com/file/d/1Vq_NGXdiZSl2ez4PP9DhVQc3JL02TU8C/view?usp=sharing
+#### Baidu Netdisk
+url：https://pan.baidu.com/s/1jyiJrIs3CZHDrrEY_gycKg?pwd=0512 
+extraction code (提取码)：0512 
