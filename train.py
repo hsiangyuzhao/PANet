@@ -23,8 +23,8 @@ torch.multiprocessing.set_sharing_strategy('file_system')
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', type=str, default='fuse',
-                        help='network for training, support UNet and FuseUNet')
+    parser.add_argument('--model', type=str, default='panet',
+                        help='network for training, support UNet and PANet')
     parser.add_argument('--interval', type=int, default=2,
                         help='interval for validation')
     parser.add_argument('--mixed', action="store_true",
@@ -52,7 +52,7 @@ def parse_args():
 
 def main():
     args = parse_args()
-    model_dict = {'unet': UNet, 'fuse': PriorAttentionNet, 'attention': AttentionUNet, 'enhanced': EnhancedUNet, 'cascade': CascadedUNet}
+    model_dict = {'unet': UNet, 'panet': PriorAttentionNet, 'attention': AttentionUNet, 'enhanced': EnhancedUNet, 'cascade': CascadedUNet}
     model_name = args.model
     eval_interval = args.interval  # evaluation interval
     is_mixed = args.mixed  # mix precision training
@@ -64,7 +64,7 @@ def main():
     patch_test = args.patch_test  # patch-based pipeline when inference
     is_ds = args.ds  # deep supervision
     save_folder = args.save_dir
-    assert model_name in ('unet', 'fuse', 'attention', 'enhanced', 'cascade'), 'Model name is wrong!'
+    assert model_name in ('unet', 'panet', 'attention', 'enhanced', 'cascade'), 'Model name is wrong!'
     assert args.optimizer in ('sgd', 'adam'), 'Optimizer not supported!'
 
     print('-' * 30)
@@ -136,7 +136,7 @@ def main():
     if args.pretrain_ckpt:
         pretrain_ckpt = torch.load(args.pretrain_ckpt)
         print('Fine tuning the second stage. Load pretrained ckpt: {}'.format(args.pretrain_ckpt))
-        if model_name == 'fuse':
+        if model_name == 'panet':
             model.load_state_dict(pretrain_ckpt['net'], strict=False)
         else:
             model.first_stage.load_state_dict(pretrain_ckpt['net'], strict=False)
@@ -224,28 +224,28 @@ def main():
                 with autocast():
                     outputs = model(inputs)
                     # calculate losses
-                    if model_name in ('fuse', 'cascade'):
+                    if model_name in ('panet', 'cascade'):
                         binary_loss = binary_criterion(outputs['stage1'], binary_targets)
                     multi_loss = model.get_multi_loss(criterion, outputs, targets, is_ds=is_ds)
                 # backward
-                if model_name in ('fuse', 'cascade'):
+                if model_name in ('panet', 'cascade'):
                     scaler.scale(binary_loss).backward(retain_graph=True)
                 scaler.scale(multi_loss).backward()
                 scaler.step(optimizer)
                 scaler.update()
             else:
                 outputs = model(inputs)
-                if model_name in ('fuse', 'cascade'):
+                if model_name in ('panet', 'cascade'):
                     binary_loss = binary_criterion(outputs['stage1'], binary_targets)
                 multi_loss = model.get_multi_loss(criterion, outputs, targets, is_ds=is_ds)
-                if model_name in ('fuse', 'cascade'):
+                if model_name in ('panet', 'cascade'):
                     binary_loss.backward(retain_graph=True)
                 multi_loss.backward()
                 optimizer.step()
 
             # for linear warmup, learning rate shall be adjusted after iterations rather than epochs
             scheduler.step()
-            if model_name in ('fuse', 'cascade'):
+            if model_name in ('panet', 'cascade'):
                 epoch_binary_loss += binary_loss.item()
             current_binary_loss = epoch_binary_loss / (step + 1)
             epoch_multi_loss += multi_loss.item()
